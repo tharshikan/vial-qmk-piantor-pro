@@ -260,19 +260,19 @@ uint16_t qs_get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return QS.tapping_term;
 }
 
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     return QS.tapping & 1;
 }
 
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     return !(QS.tapping & 2);
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     return QS.tapping & 4;
 }
 
-bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     return QS.tapping & 8;
 }
 
