@@ -17,6 +17,9 @@
 #ifndef TAPPING_FORCE_HOLD_PER_KEY
 #define TAPPING_FORCE_HOLD_PER_KEY
 #endif
+#ifndef QUICK_TAP_TERM_PER_KEY
+#define QUICK_TAP_TERM_PER_KEY
+#endif
 
 // 2. Global Mod-Tap Behavior
 // Achordion requires Permissive Hold to be enabled to catch fast typing streaks

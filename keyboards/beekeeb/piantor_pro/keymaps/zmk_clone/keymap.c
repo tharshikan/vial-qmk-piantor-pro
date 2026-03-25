@@ -128,7 +128,27 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return qs_get_tapping_term(keycode, record); 
 }
 
-// --- 5. QUICK TAP (ZMK "Quick Tap: 0") ---
+// --- 5. PER-FINGER QUICK TAP (ZMK "Quick Tap") ---
+// Determines the double-tap window for a key to repeat as a tap instead of triggering the hold.
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Left Hand (200ms generally, but 180ms for Middle)
+        case LGUI_T(KC_A): return 200; // Pinky
+        case LT(5, KC_O):  return 200; // Ring
+        case LSFT_T(KC_E): return 180; // Middle
+        case LT(1, KC_I):  return 200; // Index
+        
+        // Right Hand (180ms for all)
+        case LT(1, KC_H):    return 180; // Index
+        case RSFT_T(KC_T):   return 180; // Middle
+        case LT(2, KC_N):    return 180; // Ring
+        case RGUI_T(KC_S):   return 180; // Pinky
+
+        default: return 0; // standard fallback
+    }
+}
+
+// --- 6. FORCE HOLD (ZMK "Quick Tap: 0") ---
 // QMK natively repeats tap characters if you double-tap. 
 // We return 'true' for Space/Enter to mimic ZMK's 0ms (disable tap-repeat).
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
