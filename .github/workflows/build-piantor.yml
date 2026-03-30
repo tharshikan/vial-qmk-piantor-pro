@@ -29,6 +29,9 @@ jobs:
       - name: Mark checkout as safe
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt || pip3 install -r requirements.txt
+
       - name: Compile firmware
         run: qmk compile -kb beekeeb/piantor_pro -km zmk_clone
 
