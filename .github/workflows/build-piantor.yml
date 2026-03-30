@@ -32,14 +32,19 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r requirements.txt || pip3 install -r requirements.txt
 
+      - name: Check Vial UIDs
+        run: python3 util/ci_vial_verify_uid.py
+
       - name: Compile firmware
         run: qmk compile -kb beekeeb/piantor_pro -km zmk_clone
+
+      - name: Prepare artifact folder
+        run: |
+          mkdir piantor_firmware
+          mv *.uf2 *.hex *.bin piantor_firmware/ 2>/dev/null || true
 
       - name: Upload firmware artifacts
         uses: actions/upload-artifact@v4
         with:
           name: piantor_pro_zmk_clone
-          path: |
-            *.uf2
-            *.hex
-            *.bin
+          path: piantor_firmware/
