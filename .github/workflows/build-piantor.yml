@@ -1,0 +1,42 @@
+name: Build Piantor Pro
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - vial
+    paths:
+      - 'keyboards/beekeeb/piantor_pro/**'
+      - '.github/workflows/build-piantor.yml'
+  pull_request:
+    paths:
+      - 'keyboards/beekeeb/piantor_pro/**'
+      - '.github/workflows/build-piantor.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Mark checkout as safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Compile firmware
+        run: qmk compile -kb beekeeb/piantor_pro -km zmk_clone
+
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: piantor_pro_zmk_clone
+          path: |
+            *.uf2
+            *.hex
+            *.bin
