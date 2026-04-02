@@ -27,8 +27,3 @@
 
 // 3. Achordion (Prior Idle) settings
 #define ACHORDION_STREAK
-
-// 4. Auto-Reboot Dead Slave Half
-#define SPLIT_WATCHDOG_ENABLE
-#define SPLIT_WATCHDOG_TIMEOUT 3000
-#define SPLIT_MAX_CONNECTION_ERRORS 10
